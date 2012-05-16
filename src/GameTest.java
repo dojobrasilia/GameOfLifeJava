@@ -113,4 +113,38 @@ public class GameTest {
 		assertEquals(0,game.count(9,9));
 	}
 	
+	@Test public void deadCellsAreBlank(){
+		Game game = new Game();
+		String r =
+				"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n";
+		assertEquals(r, game.toString());
+	}
+	
+	@Test public void liveCellsAreX(){
+		Game game = new Game();
+		game.populate(0, 0);
+		game.populate(1, 3);
+		String r =
+				"X         \n"
+			+	"          \n"
+			+	"          \n"
+			+	" X        \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n"
+			+	"          \n";
+		assertEquals(r, game.toString());
+	}
+	
 }

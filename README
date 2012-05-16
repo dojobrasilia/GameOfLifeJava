@@ -6,3 +6,18 @@ For a space that is 'populated':
 	Ok Each cell with two or three neighbors survives.
 For a space that is 'empty' or 'unpopulated'
 	OK Each cell with three neighbors becomes populated.
+	
+16/5/2012
+
+Presentes:
+	- Fabricio Buzeto
+	- Arthur Almeida
+	- Felipe Moura
+	- Rafael Cruz
+	
+=]
+	- O Jogo é legal
+	- Pensamos passo a passo 
+=[
+	- Só o Fabs codificou (Kata forçado).
+		- Tentar fazer handori na próxima sessão 

@@ -35,5 +35,18 @@ public class Game {
 		return sum;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		for(int y = 0; y < 10; y++){
+			for(int x = 0; x < 10; x++)
+				if (check(x, y)) b.append('X');
+				else b.append(' ');
+			b.append('\n');
+		}
+				
+		return b.toString();
+	}
+	
 }
 
