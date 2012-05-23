@@ -3,7 +3,7 @@ public class Game {
 	private static final int FIELD_SIZE = 10;
 	private char[][] cells = new char[FIELD_SIZE][FIELD_SIZE];
 	
-	public void populate(int x, int y) {
+	public void placeHerbivore(int x, int y) {
 		cells[x][y]='H';
 	}
 	
@@ -64,6 +64,15 @@ public class Game {
 		}
 				
 		return b.toString();
+	}
+
+	public boolean existsHerbivore() {
+		for(int y = 0; y < FIELD_SIZE; y++){
+			for(int x = 0; x < FIELD_SIZE; x++){
+				if(isHerbivore(x, y)) return true;
+			}
+		}				
+		return false;
 	}
 
 }
