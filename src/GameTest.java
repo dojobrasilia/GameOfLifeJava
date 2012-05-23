@@ -1,5 +1,7 @@
 import static org.junit.Assert.*;
 
+import java.awt.Point;
+
 import org.junit.Test;
 
 
@@ -181,6 +183,21 @@ public class GameTest {
 		Game game = new Game();		
 		assertFalse(game.existsHerbivore());
 	}
+	
+	@Test public void informsTheCoordinatesOfTheNearestHerbivore(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		assertEquals(new Point(2, 2), game.findNearestHerbivore(0,0));
+	}
+	
+	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwo(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		game.placeHerbivore(5, 2);
+		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
+	}
+	
+	//TODO: Começar fazendo pelo eixo x depois o y
 	
 //	@Test public void carnivoreGoesRightTowardsTheFood(){
 //		Game game = new Game();

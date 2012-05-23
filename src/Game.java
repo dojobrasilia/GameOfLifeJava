@@ -1,3 +1,5 @@
+import java.awt.Point;
+
 public class Game {
 	
 	private static final int FIELD_SIZE = 10;
@@ -19,7 +21,7 @@ public class Game {
 					if (count(x,y) == 3 || count(x,y) == 2 ) nextGen[x][y] = 'H';
 					else nextGen[x][y] = ' ';
 				}else if( isCarnivore(x, y) ){
-					if (isHerbivore(x, y-2)){
+					if (existsHerbivore()){
 						nextGen[x][y-1] = 'C';
 						nextGen[x][y] = ' ';
 					}else{
@@ -73,6 +75,16 @@ public class Game {
 			}
 		}				
 		return false;
+	}
+
+	public Point findNearestHerbivore(int i, int j) {
+		
+		for(int y = 0; y < FIELD_SIZE; y++)
+			for(int x = 0; x < FIELD_SIZE; x++)
+				if(isHerbivore(x, y))
+					return new Point(x,y);
+		
+		return null;
 	}
 
 }
