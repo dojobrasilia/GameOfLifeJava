@@ -1,11 +1,20 @@
 John Conway Game of Life
 
-For a space that is 'populated':
-	OK Each cell with one or no neighbors dies, as if by loneliness.
-	OK Each cell with four or more neighbors dies, as if by overpopulation.
-	Ok Each cell with two or three neighbors survives.
-For a space that is 'empty' or 'unpopulated'
-	OK Each cell with three neighbors becomes populated.
+Herbívoros
+
+	For a space that is 'populated':
+		Each cell with one or no neighbors dies, as if by loneliness.
+		Each cell with four or more neighbors dies, as if by overpopulation.
+		Each cell with two or three neighbors survives.
+	For a space that is 'empty' or 'unpopulated'
+		Each cell with three neighbors becomes populated.
+
+Carnívoros
+	
+	Se todos os vizinhos forem pasto ele anda em direção ao herbívoro mais próximo.
+	Se tem um herbívoro vizinho, o herbívoro morre e ele ocupa o lugar dele.
+	Se ele der 5 passos sem comer, ele morre.
+		
 	
 16/5/2012
 

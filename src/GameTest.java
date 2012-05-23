@@ -9,22 +9,30 @@ public class GameTest {
 		Game game = new Game();
 		for(int i = 0; i < 10; i++)
 			for(int j = 0 ; j< 10; j++)
-				assertFalse("("+i+","+j+") should be False",game.check(i,j));
+				assertEquals("("+i+","+j+") should be Blank",' ',game.check(i,j));
 	}
 	
 	@Test public void aPopulatedCellMustBeAlive(){
 		Game game = new Game();
 		game.populate(0,0);
 		game.populate(1,2);
-		assertTrue("(0,0) should be True",game.check(0,0));
-		assertTrue("(1,2) should be True",game.check(1,2));
+		assertEquals("(0,0)",'H',game.check(0,0));
+		assertEquals("(1,2)",'H',game.check(1,2));
+	}
+	
+	@Test public void aCellCanBePopulatedByACarnivore(){
+		Game game = new Game();
+		game.placeCarnivore(0,0);
+		game.placeCarnivore(1,2);
+		assertEquals("(0,0)",'C',game.check(0,0));
+		assertEquals("(1,2)",'C',game.check(0,0));
 	}
 	
 	@Test public void aLonelyCellMustDie(){
 		Game game = new Game();
 		game.populate(0,0);
 		game.next();
-		assertFalse(game.check(0,0));
+		assertEquals(' ',game.check(0,0));
 	}
 	
 	@Test public void twoNeighboursCellsMustDie(){
@@ -32,8 +40,8 @@ public class GameTest {
 		game.populate(1,2);
 		game.populate(1,3);
 		game.next();
-		assertFalse(game.check(1,2));
-		assertFalse(game.check(1,3));
+		assertEquals(' ',game.check(1,2));
+		assertEquals(' ',game.check(1,3));
 	}
 	
 	@Test public void threeCellsInARowMakesTheNeighourRiseFromTheDead(){
@@ -42,8 +50,8 @@ public class GameTest {
 		game.populate(1,3);
 		game.populate(1,4);
 		game.next();
-		assertTrue(game.check(2,3));
-		assertTrue(game.check(0,3));
+		assertEquals('H',game.check(2,3));
+		assertEquals('H',game.check(0,3));
 	}
 	
 	@Test public void aCellWithTwoNeigboursLives(){
@@ -52,7 +60,7 @@ public class GameTest {
 		game.populate(1,1);
 		game.populate(0,2);
 		game.next();
-		assertTrue(game.check(1,1));
+		assertEquals('H',game.check(1,1));
 	}
 	
 	@Test public void aCellWithThreeNeigboursLives(){
@@ -62,7 +70,7 @@ public class GameTest {
 		game.populate(1,1);
 		game.populate(0,2);
 		game.next();
-		assertTrue(game.check(1,1));
+		assertEquals('H',game.check(1,1));
 	}
 	
 	@Test public void aCellWithFourNeigboursMustDie(){
@@ -73,7 +81,7 @@ public class GameTest {
 		game.populate(0,1);
 		game.populate(1,1);
 		game.next();
-		assertFalse(game.check(1,0));
+		assertEquals(' ',game.check(1,0));
 	}
 	
 	@Test public void aDeadCellWithTwoNeigboursStaysDead(){
@@ -81,7 +89,7 @@ public class GameTest {
 		game.populate(0,0);
 		game.populate(1,1);
 		game.next();
-		assertFalse(game.check(1,0));
+		assertEquals(' ',game.check(1,0));
 	}
 	
 	@Test public void countNeighboursForASingleLivingCell(){
@@ -147,4 +155,29 @@ public class GameTest {
 		assertEquals(r, game.toString());
 	}
 	
+	@Test public void carnivoreStaysQuietWhenThereIsNoFood(){
+		Game game = new Game();
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(2, 2));
+	}
+	
+	@Test public void carnivoreGoesUpTowardsTheFood(){
+		Game game = new Game();
+		game.populate(2, 0);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(2, 1));
+		assertEquals(' ', game.check(2, 2));
+	}
+	
+//	@Test public void carnivoreGoesRightTowardsTheFood(){
+//		Game game = new Game();
+//		game.populate(4, 2);
+//		game.placeCarnivore(2, 2);
+//		game.next();
+//		assertEquals('C', game.check(3, 2));
+//		assertEquals(' ', game.check(2, 2));
+//	}
+
 }
