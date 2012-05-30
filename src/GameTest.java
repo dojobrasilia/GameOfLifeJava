@@ -188,6 +188,8 @@ public class GameTest {
 		Game game = new Game();
 		game.placeHerbivore(2, 2);
 		assertEquals(new Point(2, 2), game.findNearestHerbivore(0,0));
+		
+		
 	}
 	
 	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwo(){
@@ -195,6 +197,19 @@ public class GameTest {
 		game.placeHerbivore(2, 2);
 		game.placeHerbivore(5, 2);
 		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
+	}
+	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwoY(){
+		Game game = new Game();
+		game.placeHerbivore(5, 0);
+		game.placeHerbivore(5, 2);
+		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
+	}
+	
+	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwo2D(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		game.placeHerbivore(5, 3);
+		assertEquals(new Point(2, 2), game.findNearestHerbivore(2,3));
 	}
 	
 	//TODO: Começar fazendo pelo eixo x depois o y

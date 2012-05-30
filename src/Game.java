@@ -77,14 +77,27 @@ public class Game {
 		return false;
 	}
 
-	public Point findNearestHerbivore(int i, int j) {
+	public int distance(int refX, int refY, int nearestX, int nearestY){
+		
+		return Math.abs(nearestX - refX) + Math.abs(nearestY -refY);
+	}
+	
+	public Point findNearestHerbivore(int refX, int refY) {
+		Point nearest = null;
+		int nearestDistance = Integer.MAX_VALUE; 
 		
 		for(int y = 0; y < FIELD_SIZE; y++)
+			
 			for(int x = 0; x < FIELD_SIZE; x++)
-				if(isHerbivore(x, y))
-					return new Point(x,y);
+				if(isHerbivore(x, y)){
+					int distance = distance(refX, refY, x, y);
+					if (nearestDistance > distance){
+						nearest = new Point(x,y);
+						nearestDistance = distance;
+					}
+				}
 		
-		return null;
+		return nearest;
 	}
 
 }
