@@ -157,6 +157,44 @@ public class GameTest {
 		assertEquals(r, game.toString());
 	}
 	
+	@Test public void informsThatAnHebivoreExists(){
+		Game game = new Game();
+		game.placeHerbivore(1,1);
+		assertTrue(game.existsHerbivore());
+	}
+	
+	@Test public void informsThatAnHebivoreDoesNotExists(){
+		Game game = new Game();		
+		assertFalse(game.existsHerbivore());
+	}
+	
+	@Test public void whenThereIsOnlyOneHerbivoreHeIsTheNearest(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		assertEquals(new Point(2, 2), game.findNearestHerbivore(0,0));
+	}
+	
+	@Test public void findsTheNearestHerbivoreInTheSameLine(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		game.placeHerbivore(5, 2);
+		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
+	}
+	@Test public void findsTheNearestHerbivoreInTheSameCollumn(){
+		Game game = new Game();
+		game.placeHerbivore(5, 0);
+		game.placeHerbivore(5, 2);
+		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
+	}
+	
+	@Test public void findsTheNearestHerbivoreAnywhere(){
+		Game game = new Game();
+		game.placeHerbivore(2, 2);
+		game.placeHerbivore(5, 3);
+		assertEquals(new Point(2, 2), game.findNearestHerbivore(2,3));
+	}
+
+
 	@Test public void carnivoreStaysQuietWhenThereIsNoFood(){
 		Game game = new Game();
 		game.placeCarnivore(2, 2);
@@ -173,46 +211,6 @@ public class GameTest {
 		assertEquals(' ', game.check(2, 2));
 	}
 	
-	@Test public void informsThatAnHebivoreExists(){
-		Game game = new Game();
-		game.placeHerbivore(1,1);
-		assertTrue(game.existsHerbivore());
-	}
-	
-	@Test public void informsThatAnHebivoreDoesNotExists(){
-		Game game = new Game();		
-		assertFalse(game.existsHerbivore());
-	}
-	
-	@Test public void informsTheCoordinatesOfTheNearestHerbivore(){
-		Game game = new Game();
-		game.placeHerbivore(2, 2);
-		assertEquals(new Point(2, 2), game.findNearestHerbivore(0,0));
-		
-		
-	}
-	
-	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwo(){
-		Game game = new Game();
-		game.placeHerbivore(2, 2);
-		game.placeHerbivore(5, 2);
-		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
-	}
-	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwoY(){
-		Game game = new Game();
-		game.placeHerbivore(5, 0);
-		game.placeHerbivore(5, 2);
-		assertEquals(new Point(5, 2), game.findNearestHerbivore(5,3));
-	}
-	
-	@Test public void informsTheCoordinatesOfTheNearestHerbivoreForTwo2D(){
-		Game game = new Game();
-		game.placeHerbivore(2, 2);
-		game.placeHerbivore(5, 3);
-		assertEquals(new Point(2, 2), game.findNearestHerbivore(2,3));
-	}
-	
-	//TODO: Começar fazendo pelo eixo x depois o y
 	
 //	@Test public void carnivoreGoesRightTowardsTheFood(){
 //		Game game = new Game();
