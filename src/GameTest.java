@@ -202,19 +202,28 @@ public class GameTest {
 		assertEquals('C', game.check(2, 2));
 	}
 	
-	@Test public void carnivoreGoesUpTowardsTheFood(){
+	@Test public void carnivoreEatsAdjacentHerbivore(){
 		Game game = new Game();
-		game.placeHerbivore(2, 0);
-		game.placeCarnivore(2, 2);
+		game.placeCarnivore(2,3 );
+		game.placeHerbivore(3, 3);
 		game.next();
-		assertEquals('C', game.check(2, 1));
-		assertEquals(' ', game.check(2, 2));
+		assertEquals('C', game.check(3, 3));
+		assertEquals(' ', game.check(2, 3));
 	}
 	
-	
+//	@Test public void carnivoreGoesUpTowardsTheFood(){
+//		Game game = new Game();
+//		game.placeHerbivore(2, 0);
+//		game.placeCarnivore(2, 2);
+//		game.next();
+//		assertEquals('C', game.check(2, 1));
+//		assertEquals(' ', game.check(2, 2));
+//	}
+//	
+//	
 //	@Test public void carnivoreGoesRightTowardsTheFood(){
 //		Game game = new Game();
-//		game.populate(4, 2);
+//		game.placeHerbivore(4, 2);
 //		game.placeCarnivore(2, 2);
 //		game.next();
 //		assertEquals('C', game.check(3, 2));

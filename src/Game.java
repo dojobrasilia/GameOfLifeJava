@@ -21,12 +21,13 @@ public class Game {
 					if (count(x,y) == 3 || count(x,y) == 2 ) nextGen[x][y] = 'H';
 					else nextGen[x][y] = ' ';
 				}else if( isCarnivore(x, y) ){
-					if (existsHerbivore()){
-						nextGen[x][y-1] = 'C';
-						nextGen[x][y] = ' ';
-					}else{
-						nextGen[x][y] = 'C';
-					}
+//					if (existsHerbivore()){
+//						nextGen[x][y-1] = 'C';
+//						nextGen[x][y] = ' ';
+//					}else{
+//						nextGen[x][y] = 'C';
+//					}
+					nextGen[x][y] = 'C';
 				}else{
 					if (count(x,y) == 3) nextGen[x][y] = 'H';
 				}
