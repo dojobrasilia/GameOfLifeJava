@@ -221,7 +221,7 @@ public class GameTest {
 		assertEquals('C', game.check(1, 3));
 		assertEquals(' ', game.check(2, 3));
 	}
-	
+
 	@Test
 	public void shoudNotOverwriteACellInTheNextGenWithGrass() {
 		Game game = new Game();
@@ -230,17 +230,48 @@ public class GameTest {
 		game.next();
 		assertEquals('C', game.check(3, 3));
 		assertEquals(' ', game.check(2, 3));
-		//TODO: And when the carnivore walks in a newborn herbivore?
+		// TODO: And when the carnivore walks in a newborn herbivore?
 	}
 
-	// @Test public void carnivoreGoesUpTowardsTheFood(){
-	// Game game = new Game();
-	// game.placeHerbivore(2, 0);
-	// game.placeCarnivore(2, 2);
-	// game.next();
-	// assertEquals('C', game.check(2, 1));
-	// assertEquals(' ', game.check(2, 2));
-	// }
+	@Test
+	public void carnivoreGoesUpTowardsTheFood() {
+		Game game = new Game();
+		game.placeHerbivore(2, 0);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(2, 1));
+		assertEquals(' ', game.check(2, 2));
+	}
+
+	@Test
+	public void carnivoreGoesDownTowardsTheFood() {
+		Game game = new Game();
+		game.placeHerbivore(2, 4);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(2, 3));
+		assertEquals(' ', game.check(2, 2));
+	}
+
+	@Test
+	public void carnivoreGoesRightTowardsTheFood() {
+		Game game = new Game();
+		game.placeHerbivore(4, 2);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(3, 2));
+		assertEquals(' ', game.check(2, 2));
+	}
+	@Test
+	public void carnivoreGoesLeftTowardsTheFood() {
+		Game game = new Game();
+		game.placeHerbivore(0, 2);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(1, 2));
+		assertEquals(' ', game.check(2, 2));
+	}
+
 	//
 	//
 	// @Test public void carnivoreGoesRightTowardsTheFood(){
