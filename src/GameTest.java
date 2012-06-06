@@ -213,6 +213,18 @@ public class GameTest {
 	}
 
 	@Test
+	public void carnivoreStaysQuietAndDiesAfterFiveGenerations() {
+		Game game = new Game();
+		game.placeCarnivore(2, 2);
+		game.next();
+		game.next();
+		game.next();
+		game.next();
+		game.next();
+		assertEquals(' ', game.check(2, 2));
+	}
+
+	@Test
 	public void carnivoreEatsAdjacentHerbivore() {
 		Game game = new Game();
 		game.placeCarnivore(2, 3);
@@ -262,7 +274,7 @@ public class GameTest {
 		assertEquals('C', game.check(3, 2));
 		assertEquals(' ', game.check(2, 2));
 	}
-	
+
 	@Test
 	public void carnivoreGoesLeftTowardsTheFood() {
 		Game game = new Game();
@@ -283,7 +295,7 @@ public class GameTest {
 		game.next();
 		assertEquals('C', game.check(2, 3));
 		assertEquals(' ', game.check(2, 2));
-		
+
 		game.next();
 		assertEquals('C', game.check(3, 3));
 		assertEquals(' ', game.check(2, 3));
