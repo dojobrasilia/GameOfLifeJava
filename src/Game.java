@@ -17,17 +17,17 @@ public class Game {
 		char[][] nextGen = new char[FIELD_SIZE][FIELD_SIZE];
 		for(int x = 0; x < FIELD_SIZE; x++)
 			for(int y = 0 ; y< FIELD_SIZE; y++)
-				if (isHerbivore(x, y)){
+				if (isHerbivore(x, y) && nextGen[x][y] == 0){
 					if (count(x,y) == 3 || count(x,y) == 2 ) nextGen[x][y] = 'H';
 					else nextGen[x][y] = ' ';
 				}else if( isCarnivore(x, y) ){
-//					if (existsHerbivore()){
-//						nextGen[x][y-1] = 'C';
-//						nextGen[x][y] = ' ';
-//					}else{
-//						nextGen[x][y] = 'C';
-//					}
-					nextGen[x][y] = 'C';
+					Point food = findNearestHerbivore(x, y);
+					if (food != null){
+						nextGen[food.x][food.y] = 'C';
+						nextGen[x][y] = ' ';
+					}else{
+						nextGen[x][y] = 'C';
+					}
 				}else{
 					if (count(x,y) == 3) nextGen[x][y] = 'H';
 				}
@@ -51,7 +51,7 @@ public class Game {
 		int sum = 0;
 		for (int i = -1 ; i < 2; i++)
 			for (int j = -1 ; j < 2; j++)
-				if (!(i == 0 && j == 0) && check(x+j,y+i) == 'H') sum++;
+				if (!(i == 0 && j == 0) && isHerbivore(x+j,y+i)) sum++;
 		
 		return sum;
 	}

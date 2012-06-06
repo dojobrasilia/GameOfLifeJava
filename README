@@ -1,6 +1,6 @@
 John Conway Game of Life
 
-Herbívoros
+Herbivores
 
 	For a space that is 'populated':
 		Each cell with one or no neighbors dies, as if by loneliness.
@@ -9,11 +9,12 @@ Herbívoros
 	For a space that is 'empty' or 'unpopulated'
 		Each cell with three neighbors becomes populated.
 
-Carnívoros
+Carnivores
 	
 	Se todos os vizinhos forem pasto ele anda em direção ao herbívoro mais próximo.
 	Se tem um herbívoro vizinho, o herbívoro morre e ele ocupa o lugar dele.
-	Se ele der 5 passos sem comer, ele morre.
+	Se ele der 5 passos sem comer, ele morre de fome.
+	Ele só anda horizontalmente ou verticalmente.
 		
 	
 16/5/2012
