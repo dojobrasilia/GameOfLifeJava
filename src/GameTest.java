@@ -262,6 +262,7 @@ public class GameTest {
 		assertEquals('C', game.check(3, 2));
 		assertEquals(' ', game.check(2, 2));
 	}
+	
 	@Test
 	public void carnivoreGoesLeftTowardsTheFood() {
 		Game game = new Game();
@@ -272,16 +273,21 @@ public class GameTest {
 		assertEquals(' ', game.check(2, 2));
 	}
 
-	//
-	//
-	// @Test public void carnivoreGoesRightTowardsTheFood(){
-	// Game game = new Game();
-	// game.placeHerbivore(4, 2);
-	// game.placeCarnivore(2, 2);
-	// game.next();
-	// assertEquals('C', game.check(3, 2));
-	// assertEquals(' ', game.check(2, 2));
-	// }
+	@Test
+	public void carnivoreGoesTwiceToTheFood() {
+		Game game = new Game();
+		game.placeHerbivore(3, 3);
+		game.placeHerbivore(3, 4);
+		game.placeHerbivore(4, 3);
+		game.placeCarnivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(2, 3));
+		assertEquals(' ', game.check(2, 2));
+		
+		game.next();
+		assertEquals('C', game.check(3, 3));
+		assertEquals(' ', game.check(2, 3));
+	}
 
 	static void assertEquals(char expected, char received) {
 		Assert.assertEquals(new Character(expected), new Character(received));
