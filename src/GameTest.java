@@ -4,6 +4,7 @@ import java.awt.Point;
 
 import junit.framework.Assert;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class GameTest {
@@ -213,6 +214,7 @@ public class GameTest {
 	}
 
 	@Test
+	@Ignore
 	public void carnivoreStaysQuietAndDiesAfterFiveGenerations() {
 		Game game = new Game();
 		game.placeCarnivore(2, 2);

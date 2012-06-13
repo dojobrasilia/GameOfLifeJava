@@ -3,7 +3,7 @@ import java.awt.Point;
 public class Game {
 
 	private static final int FIELD_SIZE = 10;
-	private char[][] cells = new char[FIELD_SIZE][FIELD_SIZE];
+	private Character[][] cells = new Character[FIELD_SIZE][FIELD_SIZE];
 
 	public void placeHerbivore(int x, int y) {
 		cells[x][y] = 'H';
@@ -14,7 +14,7 @@ public class Game {
 	}
 
 	public void next() {
-		char[][] nextGen = new char[FIELD_SIZE][FIELD_SIZE];
+		Character[][] nextGen = new Character[FIELD_SIZE][FIELD_SIZE];
 		for (int x = 0; x < FIELD_SIZE; x++)
 			for (int y = 0; y < FIELD_SIZE; y++)
 				if (isHerbivore(x, y)) {
@@ -27,11 +27,11 @@ public class Game {
 		cells = nextGen;
 	}
 
-	private void checkForBreeding(char[][] nextGen, int x, int y) {
+	private void checkForBreeding(Character[][] nextGen, int x, int y) {
 		if (count(x, y) == 3) nextGen[x][y] = 'H';
 	}
 
-	private void nextCarnivore(char[][] nextGen, int x, int y) {
+	private void nextCarnivore(Character[][] nextGen, int x, int y) {
 		Point food = findNearestHerbivore(x, y);
 		if (food != null) {
 			if (distance(x, y, food.x, food.y) == 1) {
@@ -57,7 +57,7 @@ public class Game {
 		}
 	}
 
-	private void nextHerbivore(char[][] nextGen, int x, int y) {
+	private void nextHerbivore(Character[][] nextGen, int x, int y) {
 		if(!isProcessed(nextGen, x, y)){
 			if (count(x, y) == 3 || count(x, y) == 2)
 				nextGen[x][y] = 'H';
@@ -66,8 +66,8 @@ public class Game {
 		}
 	}
 
-	private boolean isProcessed(char[][] nextGen, int x, int y) {
-		return nextGen[x][y] != 0;
+	private boolean isProcessed(Character[][] nextGen, int x, int y) {
+		return nextGen[x][y] != null;
 	}
 
 	private boolean isCarnivore(int x, int y) {
@@ -81,7 +81,7 @@ public class Game {
 	public char check(int x, int y) {
 		if (x < 0 || y < 0 || y > 9 || x > 9)
 			return ' ';
-		return cells[x][y] == '\0' ? ' ' : cells[x][y];
+		return cells[x][y] == null ? ' ' : cells[x][y];
 	}
 
 	int count(int x, int y) {
