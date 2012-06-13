@@ -3,18 +3,18 @@ import java.awt.Point;
 public class Game {
 
 	private static final int FIELD_SIZE = 10;
-	private Character[][] cells = new Character[FIELD_SIZE][FIELD_SIZE];
+	private Animal[][] cells = new Animal[FIELD_SIZE][FIELD_SIZE];
 
 	public void placeHerbivore(int x, int y) {
-		cells[x][y] = 'H';
+		cells[x][y] = new Animal('H');
 	}
 
 	public void placeCarnivore(int x, int y) {
-		cells[x][y] = 'C';
+		cells[x][y] = new Animal('C');
 	}
 
 	public void next() {
-		Character[][] nextGen = new Character[FIELD_SIZE][FIELD_SIZE];
+		Animal[][] nextGen = new Animal[FIELD_SIZE][FIELD_SIZE];
 		for (int x = 0; x < FIELD_SIZE; x++)
 			for (int y = 0; y < FIELD_SIZE; y++)
 				if (isHerbivore(x, y)) {
@@ -27,15 +27,22 @@ public class Game {
 		cells = nextGen;
 	}
 
-	private void checkForBreeding(Character[][] nextGen, int x, int y) {
-		if (count(x, y) == 3) nextGen[x][y] = 'H';
+	private void checkForBreeding(Animal[][] nextGen, int x, int y) {
+		if (count(x, y) == 3) nextGen[x][y] = new Animal('H');
 	}
 
-	private void nextCarnivore(Character[][] nextGen, int x, int y) {
+	private void nextCarnivore(Animal[][] nextGen, int x, int y) {
+		Animal animal = this.cells[x][y];
+		animal.incTurn();
+		if (animal.hunger > 4){
+			nextGen[x][y] = null;
+			return ;
+		}
 		Point food = findNearestHerbivore(x, y);
 		if (food != null) {
 			if (distance(x, y, food.x, food.y) == 1) {
-				nextGen[food.x][food.y] = 'C';
+				animal.hunger =0;
+				nextGen[food.x][food.y] = animal;
 			} else {
 				Point direction = new Point();
 				
@@ -48,25 +55,25 @@ public class Game {
 				else
 					direction.x = +1;
 				
-				nextGen[x + direction.x][y + direction.y] = 'C';
+				nextGen[x + direction.x][y + direction.y] = animal;
 			}
 
-			nextGen[x][y] = ' ';
+			nextGen[x][y] = null;
 		} else {
-			nextGen[x][y] = 'C';
+			nextGen[x][y] = animal;
 		}
 	}
 
-	private void nextHerbivore(Character[][] nextGen, int x, int y) {
+	private void nextHerbivore(Animal[][] nextGen, int x, int y) {
 		if(!isProcessed(nextGen, x, y)){
 			if (count(x, y) == 3 || count(x, y) == 2)
-				nextGen[x][y] = 'H';
+				nextGen[x][y] = new Animal('H');
 			else
-				nextGen[x][y] = ' ';
+				nextGen[x][y] = null;
 		}
 	}
 
-	private boolean isProcessed(Character[][] nextGen, int x, int y) {
+	private boolean isProcessed(Animal[][] nextGen, int x, int y) {
 		return nextGen[x][y] != null;
 	}
 
@@ -81,7 +88,7 @@ public class Game {
 	public char check(int x, int y) {
 		if (x < 0 || y < 0 || y > 9 || x > 9)
 			return ' ';
-		return cells[x][y] == null ? ' ' : cells[x][y];
+		return cells[x][y] == null ? ' ' : cells[x][y].type;
 	}
 
 	int count(int x, int y) {
@@ -99,11 +106,8 @@ public class Game {
 		StringBuilder b = new StringBuilder();
 		for (int y = 0; y < FIELD_SIZE; y++) {
 			for (int x = 0; x < FIELD_SIZE; x++)
-				if (isHerbivore(x, y))
-					b.append('X');
-				else
-					b.append(' ');
-			b.append('\n');
+					b.append(check(x,y));
+				b.append('\n');
 		}
 
 		return b.toString();
@@ -142,4 +146,17 @@ public class Game {
 		return nearest;
 	}
 
+}
+
+class Animal
+{
+	Character type;
+	int hunger;
+	
+	public Animal(Character type){
+		this.type = type;
+	}
+
+	public void incTurn() {	hunger++;}
+	
 }

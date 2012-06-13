@@ -150,12 +150,12 @@ public class GameTest {
 	}
 
 	@Test
-	public void liveCellsAreX() {
+	public void herbivoreCellsAreH() {
 		Game game = new Game();
 		game.placeHerbivore(0, 0);
 		game.placeHerbivore(1, 3);
-		String r = "X         \n" + "          \n" + "          \n"
-				+ " X        \n" + "          \n" + "          \n"
+		String r = "H         \n" + "          \n" + "          \n"
+				+ " H        \n" + "          \n" + "          \n"
 				+ "          \n" + "          \n" + "          \n"
 				+ "          \n";
 		assertEquals(r, game.toString());
@@ -214,7 +214,6 @@ public class GameTest {
 	}
 
 	@Test
-	@Ignore
 	public void carnivoreStaysQuietAndDiesAfterFiveGenerations() {
 		Game game = new Game();
 		game.placeCarnivore(2, 2);
@@ -222,8 +221,23 @@ public class GameTest {
 		game.next();
 		game.next();
 		game.next();
+		assertEquals('C', game.check(2, 2));
 		game.next();
 		assertEquals(' ', game.check(2, 2));
+	}
+	
+	@Test
+	public void carnivoreEatsAndStaysAlive(){
+		Game game = new Game();
+		game.placeHerbivore(2, 1);
+		game.placeCarnivore(2, 2);
+		game.next();
+		game.next();
+		game.next();
+		game.next();
+		game.next();
+		
+		assertEquals('C', game.check(2, 1));
 	}
 
 	@Test
@@ -301,6 +315,18 @@ public class GameTest {
 		game.next();
 		assertEquals('C', game.check(3, 3));
 		assertEquals(' ', game.check(2, 3));
+	}
+	
+	@Test
+	public void carnivoreCellsAreC(){
+		Game game = new Game();
+		game.placeCarnivore(0, 0);
+		game.placeCarnivore(1, 3);
+		String r = "C         \n" + "          \n" + "          \n"
+				+ " C        \n" + "          \n" + "          \n"
+				+ "          \n" + "          \n" + "          \n"
+				+ "          \n";
+		assertEquals(r, game.toString());
 	}
 
 	static void assertEquals(char expected, char received) {
