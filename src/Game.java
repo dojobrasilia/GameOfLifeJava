@@ -2,6 +2,10 @@ import java.awt.Point;
 
 public class Game {
 
+	private static final Point RIGHT = new Point(+1,0);
+	private static final Point LEFT = new Point(-1,0);
+	private static final Point DOWN = new Point(0,+1);
+	private static final Point UP = new Point(0,-1);
 	private static final int FIELD_SIZE = 10;
 	private Animal[][] cells = new Animal[FIELD_SIZE][FIELD_SIZE];
 
@@ -44,22 +48,7 @@ public class Game {
 				animal.hunger =0;
 				nextGen[food.x][food.y] = animal;
 			} else {
-				Point direction = new Point();
-				
-				
-				if (food.y < y)
-					direction.y = -1;
-				else if (food.y > y)
-					direction.y = +1;
-				
-				if (direction.y == 0
-						|| nextGen[x][y+direction.y] != null) {
-					direction.y = 0;
-					if (food.x < x)
-						direction.x = -1;
-					else
-						direction.x = +1;
-				}
+				Point direction = whereTo(x, y, food, nextGen);
 				
 				nextGen[x + direction.x][y + direction.y] = animal;
 			}
@@ -68,6 +57,21 @@ public class Game {
 		} else {
 			nextGen[x][y] = animal;
 		}
+	}
+
+	private Point whereTo(int x, int y, Point food, Animal[][] nextGen) {
+		Point direction = null;
+		if (food.y < y)
+			direction = UP;
+		else if (food.y > y)
+			direction = DOWN;
+		
+		if (direction == null || nextGen[x][y + direction.y] != null)
+			if (food.x < x)
+				direction = LEFT;
+			else
+				direction = RIGHT;
+		return direction;
 	}
 
 	private void nextHerbivore(Animal[][] nextGen, int x, int y) {

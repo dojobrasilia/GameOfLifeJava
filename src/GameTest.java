@@ -339,6 +339,20 @@ public class GameTest {
 		assertEquals('C', game.check(1, 2));
 		assertEquals('C', game.check(2, 1));
 	}
+	
+	@Test
+	public void twoCarnivoresShouldWalkInLine(){
+		
+		Game game = new Game();
+		game.placeCarnivore(0, 0);
+		game.placeCarnivore(1, 0);
+		game.placeHerbivore(2, 0);
+		game.next();
+		
+		assertEquals(' ', game.check(0, 0));
+		assertEquals('C', game.check(2, 0));
+		assertEquals('C', game.check(1, 0));
+	}
 
 	static void assertEquals(char expected, char received) {
 		Assert.assertEquals(new Character(expected), new Character(received));
