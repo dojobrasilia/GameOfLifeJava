@@ -46,14 +46,20 @@ public class Game {
 			} else {
 				Point direction = new Point();
 				
+				
 				if (food.y < y)
 					direction.y = -1;
 				else if (food.y > y)
 					direction.y = +1;
-				else if (food.x < x)
-					direction.x = -1;
-				else
-					direction.x = +1;
+				
+				if (direction.y == 0
+						|| nextGen[x][y+direction.y] != null) {
+					direction.y = 0;
+					if (food.x < x)
+						direction.x = -1;
+					else
+						direction.x = +1;
+				}
 				
 				nextGen[x + direction.x][y + direction.y] = animal;
 			}
@@ -109,7 +115,6 @@ public class Game {
 					b.append(check(x,y));
 				b.append('\n');
 		}
-
 		return b.toString();
 	}
 

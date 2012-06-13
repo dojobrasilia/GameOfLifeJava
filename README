@@ -15,7 +15,7 @@ Carnivores
 	Se tem um herbívoro vizinho, o herbívoro morre e ele ocupa o lugar dele.
 	Se ele der 5 passos sem comer, ele morre de fome.
 	Ele só anda horizontalmente ou verticalmente.
-		
+	Carnívoros não podem colidir.	
 	
 16/5/2012
 

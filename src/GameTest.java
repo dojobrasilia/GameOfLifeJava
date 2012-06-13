@@ -225,9 +225,9 @@ public class GameTest {
 		game.next();
 		assertEquals(' ', game.check(2, 2));
 	}
-	
+
 	@Test
-	public void carnivoreEatsAndStaysAlive(){
+	public void carnivoreEatsAndStaysAlive() {
 		Game game = new Game();
 		game.placeHerbivore(2, 1);
 		game.placeCarnivore(2, 2);
@@ -236,7 +236,7 @@ public class GameTest {
 		game.next();
 		game.next();
 		game.next();
-		
+
 		assertEquals('C', game.check(2, 1));
 	}
 
@@ -316,9 +316,9 @@ public class GameTest {
 		assertEquals('C', game.check(3, 3));
 		assertEquals(' ', game.check(2, 3));
 	}
-	
+
 	@Test
-	public void carnivoreCellsAreC(){
+	public void carnivoreCellsAreC() {
 		Game game = new Game();
 		game.placeCarnivore(0, 0);
 		game.placeCarnivore(1, 3);
@@ -327,6 +327,17 @@ public class GameTest {
 				+ "          \n" + "          \n" + "          \n"
 				+ "          \n";
 		assertEquals(r, game.toString());
+	}
+
+	@Test
+	public void carnivoresMustNotCollide() {
+		Game game = new Game();
+		game.placeCarnivore(0, 2);
+		game.placeCarnivore(1, 1);
+		game.placeHerbivore(2, 2);
+		game.next();
+		assertEquals('C', game.check(1, 2));
+		assertEquals('C', game.check(2, 1));
 	}
 
 	static void assertEquals(char expected, char received) {
